@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33403.182
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "2D Game Engine", "2D Game Engine.csproj", "{B832E3B4-753A-4FDB-BC49-9E7D032F763F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B832E3B4-753A-4FDB-BC49-9E7D032F763F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B832E3B4-753A-4FDB-BC49-9E7D032F763F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B832E3B4-753A-4FDB-BC49-9E7D032F763F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B832E3B4-753A-4FDB-BC49-9E7D032F763F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7A3A0CE3-4FDC-43BA-83B1-44AD973914CD}
+	EndGlobalSection
+EndGlobal

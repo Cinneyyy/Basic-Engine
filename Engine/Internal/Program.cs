@@ -1,14 +1,22 @@
-using Engine;
 using Engine.Rendering;
 
-class Program
+namespace Engine.Internal;
+
+internal class Program
 {
+    public const bool CamMovement = true, CamZoom = true;
+    public const float CamSize = 16f;
+    public const string WindowTitle = "Game Title";
+    public const int ClearColor = 0x000000;
+
+
     private static void Main()
     {
-        Camera.active = new(Vec2.zero, 16);
-        Camera.active.SetupMovement(20);
-        Camera.active.SetupZoom();
+        Camera.active = new(Vec2.zero, CamSize);
+        if(CamMovement) Camera.active.SetupMovement(20);
+        if(CamZoom) Camera.active.SetupZoom();
 
+#if false
         var text = new Engine.Rendering.TextRenderer("Test", Color.white, 20);
         text.globalPos = new(0, 0);
         Time.update += delegate {
@@ -49,8 +57,8 @@ class Program
         Input.cursorMove += update;
         
         */
+#endif
 
-        // WindowInstance is set in constructer
-        _ = new Window("Game Title", Camera.active.size, Color.black);
+        _ = new Window(WindowTitle, Camera.active.size, new Color(ClearColor));
     }
 }

@@ -5,11 +5,29 @@ namespace Engine;
 
 public struct Color
 {
+    private const float OneOver255 = 1f / 255f;
+
     public float r, g, b, a;
-    public byte rByte => (byte)(r * 255);
-    public byte gByte => (byte)(g * 255);
-    public byte bByte => (byte)(b * 255);
-    public byte aByte => (byte)(a * 255);
+    public byte rByte
+    {
+        get => (byte)(r * 255f);
+        set => r = value * OneOver255;
+    }
+    public byte gByte
+    {
+        get => (byte)(g * 255f);
+        set => g = value * OneOver255;
+    }
+    public byte bByte
+    {
+        get => (byte)(b * 255f);
+        set => b = value * OneOver255;
+    }
+    public byte aByte
+    {
+        get => (byte)(a * 255f);
+        set => a = value * OneOver255;
+    }
 
     public static readonly Color red = new(1, 0, 0);
     public static readonly Color green = new(0, 1, 0);
@@ -26,14 +44,6 @@ public struct Color
     public static readonly Color transparent = new(0, 0, 0, 0);
 
 
-    public Color(float r, float g, float b)
-    {
-        this.r = r;
-        this.g = g;
-        this.b = b;
-        this.a = 1;
-    }
-
     public Color(float r, float g, float b, float a)
     {
         this.r = r;
@@ -42,8 +52,20 @@ public struct Color
         this.a = a;
     }
 
-    public Color(int hexCode)
-        => this = sd_col.FromArgb(hexCode);
+    public Color(float r, float g, float b) : this(r, g, b, 1f) { }
+
+    public Color(byte r, byte g, byte b, byte a) : this(r * OneOver255, g * OneOver255, b * OneOver255, a * OneOver255) { }
+
+    public Color(byte r, byte g, byte b) : this(r, g, b, 255) { }
+
+    public Color(int hexCodeRGB) : this(r: (byte)((hexCodeRGB >> 16) & 0xFF),
+                                        g: (byte)((hexCodeRGB >> 8) & 0xFF),
+                                        b: (byte)(hexCodeRGB & 0xFF)) { }
+
+    public Color(uint hexCodeRGBA) : this(r: (byte)((hexCodeRGBA >> 24) & 0xFF),
+                                          g: (byte)((hexCodeRGBA >> 16) & 0xFF),
+                                          b: (byte)((hexCodeRGBA >> 8) & 0xFF),
+                                          a: (byte)(hexCodeRGBA & 0xFF)) { }
 
 
     public override bool Equals(object obj) => obj is Color color && r == color.r && g == color.g && b == color.b && a == color.a;
@@ -106,5 +128,5 @@ public struct Color
 
 
     public static implicit operator sd_col(Color c) => sd_col.FromArgb(c.aByte, c.rByte, c.gByte, c.bByte);
-    public static implicit operator Color(sd_col c) => new(c.R / 255f, c.G / 255f, c.B / 255f, c.A / 255f);
+    public static implicit operator Color(sd_col c) => new(c.R * OneOver255, c.G * OneOver255, c.B * OneOver255, c.A * OneOver255);
 }

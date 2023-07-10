@@ -14,7 +14,7 @@ public struct Optional<T>
 
     public Optional(bool enabled)
     {
-        this.value = default(T);
+        this.value = default;
         this.enabled = enabled;
     }
 

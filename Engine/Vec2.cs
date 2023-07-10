@@ -18,7 +18,13 @@ public struct Vec2 : IEnumerable<float>, IEquatable<Vec2>
 
     public float sqrLength => x*x + y*y;
     public float length => sqrLength.Sqrt();
-    public Vec2 normalized => this / length;
+    public Vec2 normalized
+    {
+        get {
+            float len = length;
+            return len == 0 ? this : this / len;
+        }
+    }
 
     public static readonly Vec2 left = new(-1, 0);
     public static readonly Vec2 right = new(1, 0);

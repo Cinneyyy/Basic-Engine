@@ -1,9 +1,20 @@
 ﻿using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace Engine;
 
 public static class Input
 {
+    /*private struct KeyState
+    {
+        public Keys key;
+        public bool down;
+        public bool changed;
+    }*/
+
+
+   // private static readonly List<KeyState> keyStates = new();
+
     public static event InputKeyCallback keyDown = delegate { };
     public static event InputKeyCallback keyUp = delegate { };
     public static event InputCursorClickedCallback cursorClick = delegate { };
@@ -17,7 +28,13 @@ public static class Input
         return new(ppos, Camera.active.ScreenToWorld(ppos));
     }
 
-    public static void OnCursorMove(object sender, MouseEventArgs args)
+
+    internal static void InitInputState()
+    {
+        // TODO: Add Input States
+    }
+
+    internal static void OnCursorMove(object sender, MouseEventArgs args)
     {
         var (ppos, wpos) = MapPositions(args);
         cursorMove(ppos, wpos);

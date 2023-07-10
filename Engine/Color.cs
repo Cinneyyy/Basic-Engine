@@ -5,43 +5,41 @@ namespace Engine;
 
 public struct Color
 {
-    private const float OneOver255 = 1f / 255f;
-
     public float r, g, b, a;
     public byte rByte
     {
         get => (byte)(r * 255f);
-        set => r = value * OneOver255;
+        set => r = value / 255f;
     }
     public byte gByte
     {
         get => (byte)(g * 255f);
-        set => g = value * OneOver255;
+        set => g = value / 255f;
     }
     public byte bByte
     {
         get => (byte)(b * 255f);
-        set => b = value * OneOver255;
+        set => b = value / 255f;
     }
     public byte aByte
     {
         get => (byte)(a * 255f);
-        set => a = value * OneOver255;
+        set => a = value / 255f;
     }
 
-    public static readonly Color red = new(1, 0, 0);
-    public static readonly Color green = new(0, 1, 0);
-    public static readonly Color blue = new(0, 0, 1);
-    public static readonly Color white = new(1, 1, 1);
-    public static readonly Color black = new(0, 0, 0);
-    public static readonly Color yellow = new(1, 1, 0);
-    public static readonly Color orange = new(1, .5f, 0);
-    public static readonly Color aqua = new(0, 1, 1);
-    public static readonly Color pink = new(1, 0, 1);
-    public static readonly Color purple = new(.5f, 0, 1);
+    public static readonly Color red = new(1f, 0f, 0f);
+    public static readonly Color green = new(0f, 1f, 0f);
+    public static readonly Color blue = new(0f, 0f, 1f);
+    public static readonly Color white = new(1f, 1f, 1f);
+    public static readonly Color black = new(0f, 0f, 0f);
+    public static readonly Color yellow = new(1f, 1f, 0f);
+    public static readonly Color orange = new(1f, .5f, 0f);
+    public static readonly Color aqua = new(0f, 1f, 1f);
+    public static readonly Color pink = new(1f, 0f, 1f);
+    public static readonly Color purple = new(.5f, 0f, 1f);
     public static readonly Color gray = new(.5f, .5f, .5f);
     public static readonly Color darkGray = new(.25f, .25f, .25f);
-    public static readonly Color transparent = new(0, 0, 0, 0);
+    public static readonly Color transparent = new(0f, 0f, 0f, 0f);
 
 
     public Color(float r, float g, float b, float a)
@@ -54,7 +52,7 @@ public struct Color
 
     public Color(float r, float g, float b) : this(r, g, b, 1f) { }
 
-    public Color(byte r, byte g, byte b, byte a) : this(r * OneOver255, g * OneOver255, b * OneOver255, a * OneOver255) { }
+    public Color(byte r, byte g, byte b, byte a) : this(r / 255f, g / 255f, b / 255f, a / 255f) { }
 
     public Color(byte r, byte g, byte b) : this(r, g, b, 255) { }
 
@@ -128,5 +126,5 @@ public struct Color
 
 
     public static implicit operator sd_col(Color c) => sd_col.FromArgb(c.aByte, c.rByte, c.gByte, c.bByte);
-    public static implicit operator Color(sd_col c) => new(c.R * OneOver255, c.G * OneOver255, c.B * OneOver255, c.A * OneOver255);
+    public static implicit operator Color(sd_col c) => new(c.R / 255f, c.G / 255f, c.B / 255f, c.A / 255f);
 }

@@ -16,17 +16,17 @@ public static class Time
     public static float fpsTargetSampleTime { get; set; } = 1f;
     public static float fpsSampleTimeError => InternalGetters.fpsSampleTimeError;
     
-    public static event GameLoopUpdateCallback update
+    public static event SafeGameLoopUpdateCallback update
     {
         add => GameLoop.update += value;
         remove => GameLoop.update -= value;
     }    
-    public static event GameLoopUpdateCallback earlyUpdate
+    public static event SafeGameLoopUpdateCallback earlyUpdate
     {
         add => GameLoop.earlyUpdate += value;
         remove => GameLoop.earlyUpdate -= value;
     }    
-    public static event GameLoopUpdateCallback lateUpdate
+    public static event SafeGameLoopUpdateCallback lateUpdate
     {
         add => GameLoop.lateUpdate += value;
         remove => GameLoop.lateUpdate -= value;

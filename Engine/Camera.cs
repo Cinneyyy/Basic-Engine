@@ -1,6 +1,6 @@
 ﻿namespace Engine;
 
-public class Camera : Object
+public class Camera : Module
 {
     public float size
     {
@@ -34,9 +34,9 @@ public class Camera : Object
     private static Camera _active;
 
 
-    public Camera(Vec2 pos, float size)
+    public Camera(Object obj, Vec2 pos, float size) : base(obj)
     {
-        this.globalPos = pos;
+        base.obj.globalPos = pos;
         this.size = size;
     }
 
@@ -46,10 +46,10 @@ public class Camera : Object
 
 
     public Vec2 ScreenToWorld(Vec2i pos)
-        => (Vec2)((Window.instance.center - pos) * new Vec2i(-1, 1)) / Window.instance.screenToWorldRatio + this.globalPos;
+        => (Vec2)((Window.instance.center - pos) * new Vec2i(-1, 1)) / Window.instance.screenToWorldRatio + obj.globalPos;
 
     public Vec2i WorldToScreen(Vec2 pos)
-        => (Vec2i)((this.globalPos - pos) * Window.instance.screenToWorldRatio) * new Vec2i(-1, 1) + Window.instance.center;
+        => (Vec2i)((obj.globalPos - pos) * Window.instance.screenToWorldRatio) * new Vec2i(-1, 1) + Window.instance.center;
 
     public void SetupMovement(float moveSpeed = 10f)
     {
@@ -59,7 +59,7 @@ public class Camera : Object
             return;
         }
 
-        controller = new ObjectController(this, moveSpeed);
+        controller = new ObjectController(obj, moveSpeed);
         setupController = true;
     }
     public void SetupMovement(DirectionKeys keys, float moveSpeed = 10f)
@@ -70,7 +70,7 @@ public class Camera : Object
             return;
         }
 
-        controller = new ObjectController(this, moveSpeed, keys);
+        controller = new ObjectController(obj, moveSpeed, keys);
         setupController = true;
     }
     public void SetupZoom(float minSize = 3f, float maxSize = 200f, float stepSize = .75f)
@@ -119,7 +119,6 @@ public class Camera : Object
         }
 
         setupController = false;
-        controller.Dispose();
         controller = null;
     }
     public void RemoveZoom()

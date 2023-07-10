@@ -43,4 +43,6 @@ public static class Globals
         consFg = curCol;
         return msg;
     }
+
+    public static T[] Arr<T>() => Array.Empty<T>();
 }

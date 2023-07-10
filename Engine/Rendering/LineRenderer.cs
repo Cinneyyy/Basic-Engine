@@ -27,8 +27,9 @@ public class LineRenderer : Renderer
     public override void Draw(in Graphics graphics, float stwr)
     {
         pen.Width = width * stwr;
-        Vec2 newFrom = ApplyPosOffset(globalPos + from + yFlipVec / 2, Vec2.one * stwr);
-        Vec2 newTo = ApplyPosOffset(globalPos + to + yFlipVec / 2, Vec2.one * stwr);
+        var pos = drawPos;
+        Vec2 newFrom = ApplyPosOffset(pos + from + yFlipVec / 2, Vec2.one * stwr);
+        Vec2 newTo = ApplyPosOffset(pos + to + yFlipVec / 2, Vec2.one * stwr);
         graphics.DrawLine(pen, newFrom.x, newFrom.y, newTo.x, newTo.y);
     }
 }

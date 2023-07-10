@@ -4,6 +4,7 @@ using Engine.Internal;
 using Engine.Rendering;
 using System.Drawing.Drawing2D;
 using SWF = System.Windows.Forms;
+using SYS = System;
 
 namespace Engine;
 
@@ -25,8 +26,17 @@ public class Window
         set => screenToWorldRatio = canvas.Size.Width / (_unitsPerScreenWidth = value);
     }
 
-    private GameLoop gameLoop;
-    private RenderLoop renderLoop;
+    internal GameLoop gameLoop 
+    { 
+        get => InternalGetters.gameLoop;
+        private init => InternalGetters.gameLoop = value;
+    }
+    internal RenderLoop renderLoop
+    {
+        get => InternalGetters.renderLoop;
+        private init => InternalGetters.renderLoop = value;
+    }
+
     private float _unitsPerScreenWidth;
 
     public static Window instance { get; private set; }
@@ -95,6 +105,8 @@ public class Window
                 registeredRenderers.Add(renderer);
             else
                 registeredRenderers.Insert(0, renderer);
+
+            SYS::Console.WriteLine($"Registered renderer \"{renderer!.obj?.name ?? "[undefined name]"}\" to the {(addToEnd ? "end" : "start")} of the render queue");
         }
     }
 

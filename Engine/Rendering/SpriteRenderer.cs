@@ -9,14 +9,14 @@ public class SpriteRenderer : Renderer
     public SpriteRenderingMode mode;
 
 
-    public SpriteRenderer(Bitmap bmp, Vec2 scale, SpriteRenderingMode mode = SpriteRenderingMode.Multiply)
+    public SpriteRenderer(Bitmap bmp, Vec2 scale, SpriteRenderingMode mode = SpriteRenderingMode.Multiply) : base()
     {
         this.bmp = bmp;
         this.scale = scale;
         this.mode = mode;
     }
 
-    public SpriteRenderer(string bmpId, Vec2 scale, SpriteRenderingMode mode = SpriteRenderingMode.Multiply)
+    public SpriteRenderer(string bmpId, Vec2 scale, SpriteRenderingMode mode = SpriteRenderingMode.Multiply) : base()
     {
         this.bmp = Resources.GetBmp(bmpId);
         this.scale = scale;
@@ -33,7 +33,7 @@ public class SpriteRenderer : Renderer
         };
 
         Vec2 newScale = ApplyScreenScaling(scale);
-        Vec2 newPos = ApplyPosOffset(globalPos, newScale);
+        Vec2 newPos = ApplyPosOffset(drawPos, newScale);
         graphics.DrawImage(bmp, newPos.x, newPos.y, newScale.x, newScale.y);
     }
 }

@@ -30,7 +30,7 @@ public class TextRenderer : Renderer
     public override void Draw(in Graphics graphics, float stwr)
     {
         Vec2 newScale = ApplyScreenScaling(scaleBase);
-        Vec2 newPos = ApplyPosOffset(globalPos, newScale);
+        Vec2 newPos = ApplyPosOffset(drawPos, newScale);
 
         font = new(font.Name, fontSize*newScale.x, font.Style);
         graphics.DrawString(text, font, brush, newPos.x, newPos.y);

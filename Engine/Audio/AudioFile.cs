@@ -5,7 +5,7 @@ namespace Engine.Audio;
 
 public class AudioFile : IDisposable
 {
-    public event OnAudioFileStop onStop;
+    public event AudioFileStopCallback onStop;
     public WaveOutEvent outputDevice { get; private set; }
     public AudioFileReader fileReader { get; private set; }
     public bool loop;

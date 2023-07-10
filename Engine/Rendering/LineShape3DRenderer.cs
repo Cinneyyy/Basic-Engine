@@ -33,8 +33,9 @@ public class LineShape3DRenderer : Renderer
     {
         Vec2 fromv2 = C_Toc(from), tov2 = C_Toc(to);
 
-        Vec2 newFrom = ApplyPosOffset(globalPos + fromv2 + yFlipVec / 2, Vec2.one * stwr);
-        Vec2 newTo = ApplyPosOffset(globalPos + tov2 + yFlipVec / 2, Vec2.one * stwr);
+        var pos = drawPos;
+        Vec2 newFrom = ApplyPosOffset(pos + fromv2 + yFlipVec / 2, Vec2.one * stwr);
+        Vec2 newTo = ApplyPosOffset(pos + tov2 + yFlipVec / 2, Vec2.one * stwr);
         graphics.DrawLine(pen, newFrom.x, newFrom.y, newTo.x, newTo.y);
     }
 

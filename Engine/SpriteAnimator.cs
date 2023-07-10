@@ -1,4 +1,5 @@
-﻿using Engine.Rendering;
+﻿using Engine.Internal;
+using Engine.Rendering;
 using System.Drawing;
 
 namespace Engine;
@@ -41,7 +42,7 @@ public class SpriteAnimator
     }
 
 
-    private void Update(float dt)
+    private void Update(in float dt)
     {
         if((timer += dt) >= interval)
         {

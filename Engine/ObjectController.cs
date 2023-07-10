@@ -1,41 +1,34 @@
-﻿using System;
+﻿using Engine.Internal;
 
 namespace Engine;
 
-public class ObjectController : IDisposable
+public class ObjectController : Module
 {
-    public Object refObject;
     public float speed;
     public DirectionKeys keys;
 
 
-    public ObjectController(Object refObject, float speed)
-    {
-        this.refObject = refObject;
-        this.speed = speed;
-        keys = DirectionKeys.wasdKeys;
+    public ObjectController(Object refObject, float speed) : this(refObject, speed, DirectionKeys.wasdKeys) { }
 
-        GameLoop.update += Update;
-    }
-
-    public ObjectController(Object refObject, float speed, DirectionKeys keys)
+    public ObjectController(Object refObject, float speed, DirectionKeys keys) : base(refObject)
     {
-        this.refObject = refObject;
         this.speed = speed;
         this.keys = keys;
 
         GameLoop.update += Update;
     }
 
+    public ObjectController(float speed) : this(speed, DirectionKeys.wasdKeys) { }
 
-    private void Update(float dt)
-        => refObject.globalPos += dt * speed * keys.move;
-
-
-    public void Dispose()
+    public ObjectController(float speed, DirectionKeys keys) : base()
     {
-        GameLoop.update -= Update;
-        keys.Dispose();
-        GC.SuppressFinalize(this);
+        this.speed = speed;
+        keys = DirectionKeys.wasdKeys;
+
+        GameLoop.update += Update;
     }
+
+
+    private void Update(in float dt)
+        => obj.globalPos += dt * speed * keys.move;
 }

@@ -2,12 +2,18 @@
 
 namespace Engine.Rendering;
 
-public abstract class Renderer : Object
+public abstract class Renderer : Module
 {
+    public Vec2 offset;
+    public Vec2 drawPos => obj.globalPos + offset;
+
     protected private static readonly Vec2 yFlipVec = new(1, -1);
 
 
-    public Renderer()
+    public Renderer(Object obj) : base(obj)
+        => Window.RegisterRenderer(this);
+
+    public Renderer() : base()
         => Window.RegisterRenderer(this);
 
     ~Renderer()
@@ -24,5 +30,5 @@ public abstract class Renderer : Object
         => scale * stwr;
 
     public static Vec2 ApplyPosOffset(in Vec2 pos, in Vec2 newScale)
-        => (pos - Camera.active.globalPos) * yFlipVec * Window.instance.screenToWorldRatio + Window.instance.center - newScale/2f;
+        => (pos - Camera.active.obj.globalPos) * yFlipVec * Window.instance.screenToWorldRatio + Window.instance.center - newScale/2f;
 }

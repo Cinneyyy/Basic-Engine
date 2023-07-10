@@ -1,4 +1,5 @@
 ﻿using System;
+using Engine.Internal;
 
 namespace Engine;
 
@@ -14,6 +15,6 @@ public class ObjectConstraint
     }
 
 
-    private void Update(float dt)
+    private void Update(in float dt)
         => applyFunc();
 }

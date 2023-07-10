@@ -1,18 +1,21 @@
 ﻿using System;
 using System.Threading;
 using System.Windows.Forms;
-using Engine.Internal;
 
-namespace Engine;
+namespace Engine.Internal;
 
 public class RenderLoop
 {
-    private Thread thread;
-    private Canvas canvas;
+    public const int ThreadSleep = 1;
+
+    public Thread thread { get; private init; }
+    public bool run = true;
+
+    private readonly Canvas canvas;
 
     public static float deltaTime => InternalGetters.renderDeltaTime;
 
-    public static event GameLoopUpdateCallback draw = delegate { };
+    public static event SafeGameLoopUpdateCallback draw = delegate { };
 
 
     public RenderLoop(Canvas canvas)
@@ -29,7 +32,7 @@ public class RenderLoop
         bool wasAlive = false;
         int loops = 0, loopsLastSec = 0;
 
-        while(thread.IsAlive)
+        while(run && thread.IsAlive)
         {
             if(!canvas.Created)
                 if(!wasAlive)
@@ -42,13 +45,14 @@ public class RenderLoop
 
             try
             {
-                canvas.BeginInvoke((MethodInvoker)delegate {
+                canvas.BeginInvoke((MethodInvoker)delegate
+                {
                     canvas.Refresh();
                 });
-            } 
+            }
             catch
             {
-                Application.Quit(0);
+                Application.Quit(-1);
                 break;
             }
 
@@ -60,14 +64,14 @@ public class RenderLoop
             var secDelta = (float)(DateTime.Now - lSec).TotalSeconds;
             if(secDelta >= 1f)
             {
-               // Console.WriteLine($"Executed {loopsLastSec} render loops in the last {secDelta.ts()} seconds.");
+                Console.WriteLine($"Executed {loopsLastSec} render loops in the last {secDelta.Ts()} seconds.");
                 lSec = DateTime.Now;
                 loopsLastSec = 0;
             }
 
             loops++;
             loopsLastSec++;
-            Thread.Sleep(1);
+            Thread.Sleep(ThreadSleep);
         }
     }
 

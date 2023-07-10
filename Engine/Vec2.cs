@@ -16,17 +16,18 @@ public struct Vec2 : IEnumerable<float>, IEquatable<Vec2>
     /// </summary>
     public float y;
 
-    public float length => sqrLength.Sqrt();
     public float sqrLength => x*x + y*y;
+    public float length => sqrLength.Sqrt();
     public Vec2 normalized => this / length;
 
-    public static readonly Vec2 left     = new(-1,  0);
-    public static readonly Vec2 right    = new( 1,  0);
-    public static readonly Vec2 up       = new( 0,  1);
-    public static readonly Vec2 down     = new( 0, -1);
-    public static readonly Vec2 one      = new( 1,  1);
-    public static readonly Vec2 minusOne = new(-1, -1);
-    public static readonly Vec2 zero     = new( 0,  0);
+    public static readonly Vec2 left = new(-1, 0);
+    public static readonly Vec2 right = new(1, 0);
+    public static readonly Vec2 up = new(0, 1);
+    public static readonly Vec2 down = new(0, -1);
+    public static readonly Vec2 one = new(1, 1);
+    public static readonly Vec2 negativeOne = new(-1, -1);
+    public static readonly Vec2 zero = new(0, 0);
+    public static readonly Vec2 oneHalf = one / 2f;
 
 
     public Vec2(float x, float y)
@@ -147,8 +148,8 @@ public struct Vec2 : IEnumerable<float>, IEquatable<Vec2>
     public static bool operator ==(Vec2 l, Vec2 r) => l.x == r.x && l.y == r.y;
     public static bool operator !=(Vec2 l, Vec2 r) => l.x != r.x || l.y != r.y;
 
-    public static Vec2 operator +(Vec2 v) => v;
     public static Vec2 operator -(Vec2 v) => new(-v.x, -v.y);
+    public static Vec2 operator +(Vec2 v) => v;
 
     public static Vec2 operator +(Vec2 l, Vec2 r) => new(l.x + r.x, l.y + r.y);
     public static Vec2 operator +(Vec2 l, float r) => new(l.x + r, l.y + r);

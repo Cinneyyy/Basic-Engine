@@ -63,6 +63,8 @@ public static class Mathf
     public static float Times(this float x, float y) => x * y;
     public static float Over(this float x, float y) => x / y;
 
+    public static float Half(this ref float x) => x *= .5f;
+
     public static float Map(this float x, float fromLow, float fromHigh, float toLow, float toHigh)
         => ((x - fromLow) * (toHigh - toLow) / (fromHigh - fromLow)) + toLow;
     public static int Map(this int x, int fromLow, int fromHigh, int toLow, int toHigh)

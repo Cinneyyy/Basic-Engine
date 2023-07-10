@@ -36,7 +36,7 @@ public class MultiLineRenderer : Renderer
         pen.Width = width * stwr;
 
         Vec2 stwrVec = Vec2.one * stwr;
-        Vec2 preOffset = globalPos + yFlipVec / 2;
+        Vec2 preOffset = drawPos + yFlipVec / 2;
         int pointCount = points.Count-1;
         for(int i = 0; i < pointCount; i++)
         {

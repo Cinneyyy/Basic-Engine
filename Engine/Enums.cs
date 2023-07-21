@@ -51,19 +51,19 @@ public enum ColorRNGMode
     NormalizedValues,
 
     /// <summary>
-    /// Creates a color from a randomly generated hex code [x0 - xFFFFFF], then normalizes it [-> always total of 1].
+    /// Creates a color from a randomly generated hex code [x0 - xFFFFFF], then normalizes it [-> always total of 0xFFFFFF].
     /// </summary>
     NormalizedHex,
 
     /// <summary>
-    /// Creates a new HSV color, where the saturation and value are 1, but the hue is a random value between 0 and 1.
+    /// Creates a new HSV color, where saturation and value are both 1, but the hue is a random value between 0 and 1.
     /// </summary>
     HueOnly,
 
     /// <summary>
     /// Selects a random pair from RGB [-> RG, GB or BR], generates a random value [0 - 1] for each, then normalizes it. This mode generates deep and strong colors with a brightness of 1.
     /// </summary>
-    DoubleOnly
+    Pairs
 }
 
 public enum SpriteRenderingMode

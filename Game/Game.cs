@@ -11,7 +11,7 @@ public static class Game
 
     public static void Start()
     {
-        Vec2 size = new(Camera.active.size, Camera.active.size * (9f/16f));
+        Vec2 size = new(Camera.active.xSize, Camera.active.xSize * (9f/16f));
         _ = new Object("Border")
             .WithModule(new RectRenderer(Color.white, Vec2.zero, size, .2f));
 

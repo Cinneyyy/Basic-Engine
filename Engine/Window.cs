@@ -5,6 +5,8 @@ using Engine.Rendering;
 using System.Drawing.Drawing2D;
 using SWF = System.Windows.Forms;
 using SYS = System;
+using System.Threading;
+using System;
 
 namespace Engine;
 
@@ -18,6 +20,7 @@ public class Window
     public readonly Canvas canvas;
     public Color clearColor;
     public Vec2i size => canvas.Size;
+    public float ratio => (float)size.x / size.y;
     public Vec2i center => size / 2;
     public float screenToWorldRatio { get; private set; }
     public float unitsPerScreenWidth
@@ -26,6 +29,7 @@ public class Window
         set => screenToWorldRatio = canvas.Size.Width / (_unitsPerScreenWidth = value);
     }
 
+#pragma warning disable CA1822
     internal GameLoop gameLoop 
     { 
         get => InternalGetters.gameLoop;
@@ -36,6 +40,7 @@ public class Window
         get => InternalGetters.renderLoop;
         private init => InternalGetters.renderLoop = value;
     }
+#pragma warning restore CA1822
 
     private float _unitsPerScreenWidth;
 

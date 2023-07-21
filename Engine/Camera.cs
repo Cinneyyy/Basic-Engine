@@ -2,18 +2,19 @@
 
 public class Camera : Module
 {
-    public float size
+    public float xSize
     {
-        get => _size;
+        get => _xSize;
         set {
-            _size = value;
+            _xSize = value;
             if(isActive && Window.instance != null)
                 Window.instance.unitsPerScreenWidth = value;
         }
     }
+    public float ySize => xSize / Window.instance.ratio;
     public bool isActive { get; private set; }
 
-    private float _size = 16;
+    private float _xSize = 16;
     private ObjectController controller = null;
     private bool setupController, setupZoom;
     private (float minSize, float maxSize, float stepSize) zoomParams;
@@ -27,7 +28,7 @@ public class Camera : Module
             _active = value;
             active.isActive = true;
             if(Window.instance != null)
-                Window.instance.unitsPerScreenWidth = active.size;
+                Window.instance.unitsPerScreenWidth = active.xSize;
         }
     }
 
@@ -37,12 +38,12 @@ public class Camera : Module
     public Camera(Object obj, Vec2 pos, float size) : base(obj)
     {
         base.obj.globalPos = pos;
-        this.size = size;
+        this.xSize = size;
     }
 
 
     private void Scroll(int delta)
-        => size = (size - (delta * (size.Map(0f, zoomParams.maxSize/2, 0f, zoomParams.minSize).Squared() + zoomParams.stepSize))).Clamp(zoomParams.minSize, zoomParams.maxSize);
+        => xSize = (xSize - (delta * (xSize.Map(0f, zoomParams.maxSize/2, 0f, zoomParams.minSize).Squared() + zoomParams.stepSize))).Clamp(zoomParams.minSize, zoomParams.maxSize);
 
 
     public Vec2 ScreenToWorld(Vec2i pos)

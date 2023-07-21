@@ -1,5 +1,6 @@
 ﻿using R = System.Random;
 using COL = Engine.Color;
+using System;
 
 namespace Engine;
 
@@ -12,8 +13,12 @@ public static class Random
                 return (float)rand.NextDouble();
         }
     }
+    public static int seed
+    {
+        set => rand = new(value);
+    }
 
-    private static readonly R rand = new();
+    private static R rand = new(0);
     private static readonly object syncLock = new();
 
 
@@ -55,7 +60,7 @@ public static class Random
             case ColorRNGMode.HueOnly:
                 return COL.FromHSV(value, 1, 1);
 
-            case ColorRNGMode.DoubleOnly:
+            case ColorRNGMode.Pairs:
             {
                 float val = value;
                 int combo = val <= .333f ? 0 : val <= .666f ? 1 : 2;
@@ -81,4 +86,11 @@ public static class Random
         => new(Range(min.x, max.x), Range(min.y, max.y));
 
     public static T Select<T>(T a, T b) => value > .5f ? a : b;
+    public static T Select<T>(T a, T b, float threshhold) => value > threshhold ? a : b;
+
+    public static int ResetSeed()
+    {
+        var dt = DateTime.Now;
+        return seed = dt.Second * (dt.Millisecond + 69 - dt.Hour) + dt.Day + dt.Millisecond - dt.Microsecond;
+    }
 }

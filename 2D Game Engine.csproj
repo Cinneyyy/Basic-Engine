@@ -11,13 +11,6 @@
 
   <ItemGroup>
     <None Remove="Engine\ExtMethods.cs~RF6cdbf06.TMP" />
-    <None Remove="Examples\PutinBird\Assets\europe.png" />
-    <None Remove="Examples\PutinBird\Assets\Putin.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Examples\PutinBird\Assets\europe.png" />
-    <EmbeddedResource Include="Examples\PutinBird\Assets\putin.png" />
   </ItemGroup>
 
   <ItemGroup>
